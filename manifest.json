@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Coupon Searcher Extension",
+  "version": "1.0",
+  "description": "Find coupons for you",
+
+  "icons": {
+    "128": "icon128.png",
+    "48": "icon48.png",
+    "16": "icon16.png"
+  },
+
+  "page_action": {
+    "default_icon": "icon16.png",
+    "default_popup": "popup.html",
+    "default_title": "Coupons"
+  },
+
+  "options_page": "options.html",
+
+  "background": {
+    "scripts": ["eventPage.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.com/*"],
+      "js": ["jquery-3.3.1.min.js", "content.js"],
+      "css": ["content.css"]
+    }
+  ],
+
+  "permissions": [
+    "tabs",
+    "contextMenus",
+    "storage",
+    "https://www.amazon.com/*"
+  ]
+}
