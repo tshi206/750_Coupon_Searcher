@@ -41,5 +41,21 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
     } else if (clickData.menuItemId === "search" && clickData.selectionText) {
         console.log("Text selection : " + clickData.selectionText);
         // todo - search handler
+        notify();
     }
 });
+
+/**
+ * generate a notification if the search is invoked FROM the context menu.
+ * (after implementing the search handler, put this in the callback)
+ */
+let notify = () => {
+    let notifOptions = {
+        type: 'image',
+        iconUrl: 'resources/icon_enlarged.png',
+        imageUrl: "resources/my_favourite.png",
+        title: 'Search Launched!',
+        message: "Your search has been launched. Click on our icon to see the results!"
+    };
+    chrome.notifications.create('searchNotif', notifOptions)
+};
