@@ -1,3 +1,3 @@
 $().ready(() => {
-    alert("This is a dummy.")
+    console.log("This is a dummy.");
 });
