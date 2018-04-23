@@ -10,19 +10,43 @@
     <script src="libs/bootstrap.min.js"></script>
     <script src="functions/options.js"></script>
 </head>
-<body>
+<body class="tab-content background-img">
+<div style="text-align: center; background-color: lightcyan; opacity: 0.8;">
 <h1>Dummy options page</h1>
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+        <a class="nav-item nav-link active" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-home" aria-selected="true">Turn on/off history</a>
+        <a class="nav-item nav-link" id="nav-clear-tab" data-toggle="tab" href="#nav-clear" role="tab" aria-controls="nav-profile" aria-selected="false">Clear history</a>
+        <a class="nav-item nav-link" id="nav-popup-tab" data-toggle="tab" href="#nav-popup" role="tab" aria-controls="nav-contact" aria-selected="false">Turn on/off popup window</a>
     </div>
 </nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+</div>
+<div style="text-align: center;">
+<div id="nav-tabContent" style="height: 80vh;">
+    <div class="tab-pane fade show active" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 15%">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="history_on" autocomplete="off" checked> history on
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="history_off" autocomplete="off"> history off
+            </label>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-clear" role="tabpanel" aria-labelledby="nav-clear-tab">
+        <button type="button" class="btn btn-secondary btn-lg" id="clear_history">Clear history</button>
+    </div>
+    <div class="tab-pane fade" id="nav-popup" role="tabpanel" aria-labelledby="nav-popup-tab">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="popup_on" autocomplete="off" checked> popup on
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="popup_off" autocomplete="off"> popup off
+            </label>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

@@ -1,0 +1,7 @@
+.background-img {
+    background: url(../resources/copyright_free_image.jpg) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
