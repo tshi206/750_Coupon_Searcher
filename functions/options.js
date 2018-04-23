@@ -45,7 +45,7 @@ let notifyOptions = (msg) => {
     let notifOptions = {
         type: 'image',
         iconUrl: 'resources/icon_enlarged.png',
-        imageUrl: "resources/my_favourite.png",
+        imageUrl: "resources/big-green-tick.jpg",
         title: 'Change applied!',
         message: msg
     };
