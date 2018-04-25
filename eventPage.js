@@ -5,9 +5,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             chrome.pageAction.show(tabs[0].id)
         })
+    } else if (message.action === "select") {
+        // todo - request to api to get the results, store the results in sync storage
+        chrome.storage.sync.set({msg: message.msg}, () => {
+            chrome.windows.create({type: "popup", url: "popupOnSelection.html", width: 400, height: 600}, (window) => {
+                console.log(window.id);
+                console.log("window created");
+            });
+        });
     }
-    console.log(`sender: ${sender}, sendResponse: ${sendResponse}`)
+    //console.log(`sender: ${sender}, sendResponse: ${sendResponse}`)
 });
+
+console.log("event page ready");
 
 // create context menu items
 let contextMenuSearchItem = {
@@ -41,6 +51,11 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
     } else if (clickData.menuItemId === "search" && clickData.selectionText) {
         console.log("Text selection : " + clickData.selectionText);
         // todo - search handler
+        let popups = chrome.extension.getViews({type: "popup"});
+        if (popups.length !== 0) {
+            let popup = popups[0];
+            popup.clickSearchBtn();
+        }
         notify();
     }
 });
