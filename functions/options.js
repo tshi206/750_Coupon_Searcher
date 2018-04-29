@@ -5,22 +5,27 @@ $().ready(() => {
     $('#history_on').on("change", () => {
         notifyOptions("historyOn");
         // todo - history on handler
+        // use the visible class in popup.css
     });
     $('#history_off').on("change", () => {
         notifyOptions("historyOff");
         // todo - history off handler
+        // to disable the history feature simply set the css class of the corresponding div inside popup.html to invisible
     });
     $('#clear_history').on("click", () => {
         notifyOptions("clearHistory");
         // todo - clear history handler, essentially clear the chrome.storage.sync space
+        // set the ['history'] in storage.sync to empty string
     });
     $('#popup_on').on("change", () => {
         notifyOptions("popupOn");
-        // todo - history on handler
+        // todo - popup on handler
+        // set the ['isPopupOnSelect'] in storage.sync to true
     });
     $('#popup_off').on("change", () => {
         notifyOptions("popupOff");
-        // todo - history on handler
+        // todo - popup off handler
+        // set the ['isPopupOnSelect'] in storage.sync to false
     });
 });
 

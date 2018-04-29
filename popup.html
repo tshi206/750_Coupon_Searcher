@@ -16,10 +16,21 @@
     <div class="card-body">
         <div style="text-align: center;"><h5 class="card-title font-weight-bold" style="color: steelblue;">Find your coupons</h5></div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Product name" aria-label="Product name" aria-describedby="basic-addon2">
+            <input type="text" class="form-control" placeholder="Product name" id="searchField" aria-label="Product name" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="searchBtn" style="background-color: skyblue">Search</button>
             </div>
+        </div>
+    </div>
+    <!-- to disable the history feature simply set the css class of the following div to invisible -->
+    <div class="card border-info mb-3 visible" id="historyTab" style="max-width: 18rem;">
+        <div class="card-header">History</div>
+        <div class="list-group text-info" id="histories">
+            <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
+            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+            <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
         </div>
     </div>
 </div>
