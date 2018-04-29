@@ -17,6 +17,11 @@ $().ready(() => {
         // todo - clear history handler, essentially clear the chrome.storage.sync space in 'history'
         // set the ['history'] in storage.sync to empty ARRAY, i.e., obj.history = [];
         // see examples in eventPage.js to get and set objects in chrome.storage.sync space.
+        // in addition, restore the texts inside the history list to default : "No recent activity"
+        // and add the css class 'disabled' to each of the 'list-group-item', retrieving them via $('.list-group-item')
+        // to add class to DOM element, use: some_element.classList.add('name_of_the_css_class').
+        // see examples in popup_button_action.js where the classList.contain() and classList.remove() are demonstrated.
+        // essentially, element.classList is just an ordinary JS ARRAY of strings, hence array operations are supported.
     });
     $('#popup_on').on("change", () => {
         notifyOptions("popupOn");
