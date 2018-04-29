@@ -8,7 +8,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     } else if (message.action === "select") {
         // todo - request to api to get the results, store the results in sync storage
         chrome.storage.sync.set({msg: message.msg}, () => {
-            chrome.windows.create({type: "popup", url: "popupOnSelection.html", width: 400, height: 600}, (window) => {
+            chrome.windows.create({type: "popup", url: "popupOnSelection.html", width: 1024, height: 600}, (window) => {
+                console.log(window.id);
+                console.log("window created");
+            });
+            chrome.windows.create({type: "popup", url: "https://www.amazon.com/s/ref=nb_sb_noss?url=srs%3D2231352011%26search-alias%3Dcoupons&field-keywords=" + message.msg, width: 1024, height: 600}, (window) => {
                 console.log(window.id);
                 console.log("window created");
             });
