@@ -14,8 +14,9 @@ $().ready(() => {
     });
     $('#clear_history').on("click", () => {
         notifyOptions("clearHistory");
-        // todo - clear history handler, essentially clear the chrome.storage.sync space
-        // set the ['history'] in storage.sync to empty string
+        // todo - clear history handler, essentially clear the chrome.storage.sync space in 'history'
+        // set the ['history'] in storage.sync to empty ARRAY, i.e., obj.history = [];
+        // see examples in eventPage.js to get and set objects in chrome.storage.sync space.
     });
     $('#popup_on').on("change", () => {
         notifyOptions("popupOn");
