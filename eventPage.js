@@ -1,24 +1,32 @@
 // chrome.runtime.onMessage.addListener ::
 //  cb: ((message: any, sender: MessageSender, sendResponse: (response: any) => void) => void) => void
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
     if (message.todo === "showPageAction"){
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             chrome.pageAction.show(tabs[0].id)
         })
     } else if (message.action === "select") {
-        // todo - request to api to get the results, store the results in sync storage
-        chrome.storage.sync.set({msg: message.msg}, () => {
-            chrome.windows.create({type: "popup", url: "popupOnSelection.html", width: 1024, height: 600}, (window) => {
-                console.log(window.id);
-                console.log("window created");
-            });
-            chrome.windows.create({type: "popup", url: "https://www.amazon.com/s/ref=nb_sb_noss?url=srs%3D2231352011%26search-alias%3Dcoupons&field-keywords=" + message.msg, width: 1024, height: 600}, (window) => {
-                console.log(window.id);
-                console.log("window created");
+        let isPopupOnSelect;
+        chrome.storage.sync.get(['isPopupOnSelect'], flag => {
+            isPopupOnSelect = flag.isPopupOnSelect ? flag.isPopupOnSelect : true;
+            let histories;
+            chrome.storage.sync.get(['history'], (obj) => {
+                histories = obj.history ? obj.history : [];
+                histories.push(message.msg); // this is used as a stack, to retrieve items use array.pop();
+                console.log(histories); // use it for debugging if needed
+                chrome.storage.sync.set({history: histories}, () => {
+                    if (isPopupOnSelect) {
+                        chrome.windows.create({type: "popup",
+                            url: "https://www.amazon.com/s/ref=nb_sb_noss?url=srs%3D2231352011%26search-alias%3Dcoupons&field-keywords="
+                            + message.msg, width: 1024, height: 600}, (window) => {
+                            console.log(window.id);
+                            console.log("window created");
+                        });
+                    }
+                });
             });
         });
     }
-    //console.log(`sender: ${sender}, sendResponse: ${sendResponse}`)
 });
 
 console.log("event page ready");
@@ -54,27 +62,19 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
         chrome.tabs.create({ url: "options.html" });
     } else if (clickData.menuItemId === "search" && clickData.selectionText) {
         console.log("Text selection : " + clickData.selectionText);
-        // todo - search handler
-        let popups = chrome.extension.getViews({type: "popup"});
-        if (popups.length !== 0) {
-            let popup = popups[0];
-            popup.clickSearchBtn();
-        }
-        notify();
+        let histories;
+        chrome.storage.sync.get(['history'], (obj) => {
+            histories = obj.history ? obj.history : [];
+            histories.push(clickData.selectionText); // this is used as a stack, to retrieve items use array.pop();
+            console.log(histories); // use it for debugging if needed
+            chrome.storage.sync.set({history: histories}, () => {
+                chrome.windows.create({type: "popup",
+                    url: "https://www.amazon.com/s/ref=nb_sb_noss?url=srs%3D2231352011%26search-alias%3Dcoupons&field-keywords="
+                    + clickData.selectionText, width: 1024, height: 600}, (window) => {
+                    console.log(window.id);
+                    console.log("window created");
+                });
+            });
+        });
     }
 });
-
-/**
- * generate a notification if the search is invoked FROM the context menu.
- * (after implementing the search handler, put this in the callback)
- */
-let notify = () => {
-    let notifOptions = {
-        type: 'image',
-        iconUrl: 'resources/icon_enlarged.png',
-        imageUrl: "resources/my_favourite.png",
-        title: 'Search Launched!',
-        message: "Your search has been launched. Click on our icon to see the results!"
-    };
-    chrome.notifications.create('searchNotif', notifOptions)
-};
