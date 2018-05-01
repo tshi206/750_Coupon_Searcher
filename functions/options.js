@@ -6,26 +6,43 @@ $().ready(() => {
         notifyOptions("historyOn");
         // todo - history on handler
         // use the visible class in popup.css
+        // set the [isHistoryOn] in storage.sync to true
+        chrome.storage.sync.set({isHistoryOn:true},function(){});
     });
     $('#history_off').on("change", () => {
         notifyOptions("historyOff");
         // todo - history off handler
         // to disable the history feature simply set the css class of the corresponding div inside popup.html to invisible
+        // set the [isHistoryOn] in storage.sync to false
+        chrome.storage.sync.set({isHistoryOn:false},function(){});
     });
     $('#clear_history').on("click", () => {
         notifyOptions("clearHistory");
         // todo - clear history handler, essentially clear the chrome.storage.sync space
-        // set the ['history'] in storage.sync to empty string
+        chrome.storage.sync.clear();
+        console.log("clear");
     });
     $('#popup_on').on("change", () => {
         notifyOptions("popupOn");
         // todo - popup on handler
         // set the ['isPopupOnSelect'] in storage.sync to true
+        chrome.storage.sync.set({isPopupOnSelect: true},function(){
+
+
+            if (chrome.runtime.error) {
+                console.log("Runtime error.");
+            }
+        });
     });
     $('#popup_off').on("change", () => {
         notifyOptions("popupOff");
         // todo - popup off handler
         // set the ['isPopupOnSelect'] in storage.sync to false
+chrome.storage.sync.set({isPopupOnSelect: false},function(){
+    if (chrome.runtime.error) {
+    console.log("Runtime error.");
+}
+});
     });
 });
 

@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((message) => {
     } else if (message.action === "select") {
         let isPopupOnSelect;
         chrome.storage.sync.get(['isPopupOnSelect'], flag => {
-            isPopupOnSelect = flag.isPopupOnSelect ? flag.isPopupOnSelect : true;
+            isPopupOnSelect = flag.isPopupOnSelect ? flag.isPopupOnSelect : false;
             let histories;
             chrome.storage.sync.get(['history'], (obj) => {
                 histories = obj.history ? obj.history : [];

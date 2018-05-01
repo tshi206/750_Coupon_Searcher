@@ -2,6 +2,28 @@ $().ready( () => {
 
     console.log("popup.html ready");
     let historyItems = $('.list-group-item');
+
+    //check whether the view history is on ornot
+    chrome.storage.sync.get(['isHistoryOn'],function(flag){
+        isHistoryOn = flag.isHistoryOn ? flag.isHistoryOn : false;
+        console.log(flag);
+        //Change the class to be visible so the history tab is visible on the page.
+        if(isHistoryOn){
+           if(document.getElementById('historyTab').classList.contains('invisible')){
+               document.getElementById('historyTab').classList.remove('invisible');
+               document.getElementById('historyTab').classList.add('visible');
+               console.log("view");
+           }
+            //Change the class to be invisible so the history tab is invisible on the page.
+        }else if(!isHistoryOn){
+            console.log("false");
+            if(document.getElementById('historyTab').classList.contains('visible')){
+                document.getElementById('historyTab').classList.remove('visible');
+                document.getElementById('historyTab').classList.add('invisible');
+                console.log("false view");
+            }
+        }
+    })
     chrome.storage.sync.get(['history'], obj => {
         console.log(obj.history);
         console.log(historyItems);
