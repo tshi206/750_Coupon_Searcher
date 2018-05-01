@@ -44,7 +44,7 @@ $().ready( () => {
 
         $("#searchBtn").on("click", () => {
             console.log("search button clicked");
-            let searchText = $('#searchField').val();
+            let searchText = $('#searchField').val();;
             chrome.storage.sync.get(['history'], (obj) => {
                 let histories = obj.history ? obj.history : [];
                 histories.push(searchText); // this is used as a stack, to retrieve items use array.pop();
@@ -58,6 +58,7 @@ $().ready( () => {
                     });
                 });
             });
+
         });
 
         historyItems.on("click", () => {

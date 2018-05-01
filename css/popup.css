@@ -5,3 +5,10 @@
 .invisible{
     display: none;
 }
+
+.list-group-item{
+    height: 40px;
+    font-size: small;
+    padding-top: 10px;
+}
+

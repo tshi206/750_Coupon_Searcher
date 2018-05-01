@@ -15,17 +15,18 @@
     <img class="card-img-top" src="resources/icon_enlarged.png" alt="Card image cap">
     <div class="card-body">
         <div style="text-align: center;"><h5 class="card-title font-weight-bold" style="color: steelblue;">Find your coupons</h5></div>
-        <div class="input-group mb-3">
+        <div class="input-group ">
             <input type="text" class="form-control" placeholder="Product name" id="searchField" aria-label="Product name" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="searchBtn" style="background-color: skyblue">Search</button>
             </div>
         </div>
+
     </div>
     <!-- to disable the history feature simply set the css class of the following div to invisible -->
-    <div class="card border-info mb-3 visible" id="historyTab" style="max-width: 18rem;">
-        <div class="card-header">History</div>
-        <div class="list-group text-info" id="histories">
+    <div class="card visible" id="historyTab" style="max-width: 18rem;">
+        <div class="card-header" style="height:40px;padding: 7px 10px 7px 20px;">History</div>
+        <div class="list-group text-info" id="histories" style="max-height: 50px;margin-bottom: 148px;">
             <a href="#" class="list-group-item list-group-item-action disabled">No recent activity</a>
             <a href="#" class="list-group-item list-group-item-action disabled">No recent activity</a>
             <a href="#" class="list-group-item list-group-item-action disabled">No recent activity</a>
