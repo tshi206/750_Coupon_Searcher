@@ -3,8 +3,9 @@ $().ready( () => {
     console.log("popup.html ready");
     let historyItems = $('.list-group-item');
 
-    //check whether the view history is on ornot
+    //check whether the view history is on or not
     chrome.storage.sync.get(['isHistoryOn'],function(flag){
+        if(flag.isHistoryOn == null){flag.isHistoryOn=true;}
         isHistoryOn = flag.isHistoryOn ? flag.isHistoryOn : false;
         console.log(flag);
         //Change the class to be visible so the history tab is visible on the page.
@@ -24,6 +25,11 @@ $().ready( () => {
             }
         }
     })
+    /** When the page is loaded, the script check the chrome.storage.sync for history data.
+    * Depending on the length of array retrieved from the storage, the script decide whether
+    * the history item to be shown on the popup.html. If there is less than 5 history object and leave
+     * space for empty, the list shown on the page will be default with no hyperlink connected to it.
+     */
     chrome.storage.sync.get(['history'], obj => {
         console.log(obj.history);
         console.log(historyItems);
@@ -41,8 +47,14 @@ $().ready( () => {
                 }
             })
         }
-
-        $("#searchBtn").on("click", () => {
+            /**
+            * When search button is clicked, the function below add the search result into the storage system for history
+             * function. After saving it into the storage, it creates new window showing the result of the search so users
+             * can use the coupon on the selected item. Original plan was to implement other API provided
+             * by third party such as Groupon API, but they required token key which is only distributed to
+             * other business partners (even if they are free to use).
+            */
+            $("#searchBtn").on("click", () => {
             console.log("search button clicked");
             let searchText = $('#searchField').val();;
             chrome.storage.sync.get(['history'], (obj) => {
@@ -60,7 +72,10 @@ $().ready( () => {
             });
 
         });
-
+/**
+ * The following function is for the action to be taken when the user clicks the recent search result.
+ * When it is clicked, it opens new windows showing the result of the search according to the hyperlink saved.
+ */
         historyItems.on("click", () => {
             let item = this.document.activeElement;
             console.log("history button clicked");

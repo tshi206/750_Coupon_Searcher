@@ -7,6 +7,7 @@ $().ready(() => {
     // As it uses the storage space to save the variable, the setting is saved even if the chrome browser is closed.
     // Starting with history on/off buttons.
     chrome.storage.sync.get(['isHistoryOn'],function(flag){
+        if(flag.isHistoryOn == null){flag.isHistoryOn=true;}
         isHistoryOn = flag.isHistoryOn ? flag.isHistoryOn : false;
         console.log(flag);
         if(isHistoryOn){
@@ -27,6 +28,7 @@ $().ready(() => {
 
     // Deciding on active setting for users convenience for popoup on select menu.
     chrome.storage.sync.get(['isPopupOnSelect'],function(flag){
+        if(flag.isPopupOnSelect == null){flag.isPopupOnSelect=true;}
         isPopupOnSelect = flag.isPopupOnSelect ? flag.isPopupOnSelect : false;
         console.log(flag);
         if(isPopupOnSelect){
@@ -98,6 +100,11 @@ chrome.storage.sync.set({isPopupOnSelect: false},function(){
     });
 });
 
+/**
+ * Method to create an google chrome notification depending on the change related
+ * to the extension. Argument message is received from javascript event listners
+ * placed on various button objects in options.html.
+ */
 let notifyOptions = (msg) => {
     switch (msg) {
         case "historyOn" :
